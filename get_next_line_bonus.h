@@ -5,20 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/24 15:20:47 by mpisani           #+#    #+#             */
-/*   Updated: 2025/01/24 15:22:33 by mpisani          ###   ########.fr       */
+/*   Created: 2025/01/22 15:01:43 by mpisani           #+#    #+#             */
+/*   Updated: 2025/01/25 04:11:35 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS
-#define GET_NEXT_LINE_BONUS
-
-#include <stdlib.h>
-#include <unistd.h>
-
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 42
-#endif
-
-
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 #endif
