@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 15:01:21 by mpisani           #+#    #+#             */
-/*   Updated: 2025/02/12 18:10:30 by mpisani          ###   ########.fr       */
+/*   Created: 2025/02/12 18:22:18 by mpisani           #+#    #+#             */
+/*   Updated: 2025/02/12 18:32:21 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+
+#include "get_next_line_bonus.h"
+#include <stdio.h>
 
 static char *ft_read_to_save(int fd, char *save)
 {
@@ -70,16 +72,16 @@ static char *ft_update_save (char *save)
 
 char *get_next_line(int fd)
 {
-    static char *save;
+    static char *save[FOPEN_MAX];
     char *line;
 
-    if (fd < 0 || BUFFER_SIZE <= 0)
+    if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE <= 0)
         return (NULL);
-    save = ft_read_to_save (fd, save);
-    if (!save)
+    save[fd] = ft_read_to_save (fd, save[fd]);
+    if (!save[fd])
         return(NULL);
-    line = ft_extract_line(save);
-    save = ft_update_save(line);
+    line = ft_extract_line(save[fd]);
+    save[fd] = ft_update_save(line);
     return (line);
 }
 
