@@ -6,7 +6,7 @@
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:01:21 by mpisani           #+#    #+#             */
-/*   Updated: 2025/02/13 21:25:42 by mpisani          ###   ########.fr       */
+/*   Updated: 2025/02/13 23:51:25 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,27 @@
 static char	*ft_read_to_save(int fd, char *save)
 {
 	char	*buffer;
+	char	*tmp;
 	int		bytes_read;
-	char 	*tmp;
 
-	bytes_read = 1;
-	tmp = save;
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	while (!gnl_strchr(save, '\n') && bytes_read)
+	bytes_read = 1;
+	while (!gnl_strchr(save, '\n') && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
 			free(buffer);
 			free(save);
-			save = NULL;
 			return (NULL);
 		}
 		buffer[bytes_read] = '\0';
-		save = gnl_strjoint(save, buffer);
+		tmp = gnl_strjoint(save, buffer);
+		free(save);
+		save = tmp;
 	}
-	free(tmp);
 	free(buffer);
 	return (save);
 }
@@ -46,10 +45,12 @@ static char	*ft_extract_line(char *save)
 	char	*line;
 	size_t	i;
 
-	i = 0;
 	if (!save || !save[0])
 		return (NULL);
+	i = 0;
 	while (save[i] && save[i] != '\n')
+		i++;
+	if (save[i] == '\n')
 		i++;
 	line = gnl_substr(save, 0, i);
 	return (line);
@@ -63,17 +64,14 @@ static char	*ft_update_save(char *save)
 	i = 0;
 	while (save[i] && save[i] != '\n')
 		i++;
+	if (save[i] == '\n')
+		i++;
 	if (!save[i])
 	{
 		free(save);
 		return (NULL);
 	}
-	if (!save[i + 1])
-	{
-		free(save);
-		return (NULL);
-	}
-	new_save = gnl_strdup(save + i + 1);
+	new_save = gnl_strdup(save + i);
 	free(save);
 	return (new_save);
 }
