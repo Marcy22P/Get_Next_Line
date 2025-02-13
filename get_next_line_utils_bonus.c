@@ -6,16 +6,14 @@
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:20:04 by mpisani           #+#    #+#             */
-/*   Updated: 2025/02/12 18:23:46 by mpisani          ###   ########.fr       */
+/*   Updated: 2025/02/13 19:59:37 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "get_next_line_bonus.h"
 
 size_t	gnl_strlen(const char *s)
 {
-	size_t	len;
 	size_t	len;
 
 	len = 0;
@@ -33,11 +31,11 @@ char	*gnl_strchr(const char *s, int c)
 	while (*s)
 	{
 		if (*s == (char)c)
-			return ((char)*s);
+			return ((char *)s);
 		s++;
 	}
 	if (c == '\0')
-		return ((char)*s);
+		return ((char *)s);
 	return (NULL);
 }
 
@@ -95,6 +93,8 @@ char	*gnl_strjoint(char const *s1, char const *s2)
 	size_t	j;
 	char	*joined;
 
+	i = 0;
+	j = 0;
 	len_s1 = gnl_strlen(s1);
 	len_s2 = gnl_strlen(s2);
 	joined = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
@@ -105,7 +105,7 @@ char	*gnl_strjoint(char const *s1, char const *s2)
 		joined[i] = s1[i];
 		i++;
 	}
-	while (i < len_s2)
+	while (j < len_s2)
 	{
 		joined[i + j] = s2[j];
 		j++;
@@ -113,3 +113,4 @@ char	*gnl_strjoint(char const *s1, char const *s2)
 	joined[i + j] = '\0';
 	return (joined);
 }
+
