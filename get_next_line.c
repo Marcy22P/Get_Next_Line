@@ -6,7 +6,7 @@
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:01:21 by mpisani           #+#    #+#             */
-/*   Updated: 2025/02/13 20:19:31 by mpisani          ###   ########.fr       */
+/*   Updated: 2025/02/13 21:25:42 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ static char	*ft_read_to_save(int fd, char *save)
 {
 	char	*buffer;
 	int		bytes_read;
+	char 	*tmp;
 
 	bytes_read = 1;
+	tmp = save;
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
@@ -27,11 +29,14 @@ static char	*ft_read_to_save(int fd, char *save)
 		if (bytes_read < 0)
 		{
 			free(buffer);
+			free(save);
+			save = NULL;
 			return (NULL);
 		}
 		buffer[bytes_read] = '\0';
 		save = gnl_strjoint(save, buffer);
 	}
+	free(tmp);
 	free(buffer);
 	return (save);
 }

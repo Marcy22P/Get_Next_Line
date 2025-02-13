@@ -6,7 +6,7 @@
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:02:23 by mpisani           #+#    #+#             */
-/*   Updated: 2025/02/13 19:50:52 by mpisani          ###   ########.fr       */
+/*   Updated: 2025/02/13 21:22:59 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ char	*gnl_substr(char const *s, unsigned int start, size_t len)
 	size_t	s_len;
 	size_t	i;
 
-	i = 0;
-	s_len = gnl_strlen(s);
 	if (!s)
 		return (NULL);
+	i = 0;
+	s_len = gnl_strlen(s);
 	if (start >= s_len)
 		return (gnl_strdup(""));
 	if (gnl_strlen(s + start) < len)
