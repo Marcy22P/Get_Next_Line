@@ -6,7 +6,7 @@
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:20:04 by mpisani           #+#    #+#             */
-/*   Updated: 2025/02/13 19:59:37 by mpisani          ###   ########.fr       */
+/*   Updated: 2025/02/13 20:02:24 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,3 @@ char	*gnl_strjoint(char const *s1, char const *s2)
 	joined[i + j] = '\0';
 	return (joined);
 }
-
