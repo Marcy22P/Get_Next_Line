@@ -6,7 +6,7 @@
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:22:18 by mpisani           #+#    #+#             */
-/*   Updated: 2025/02/13 19:57:52 by mpisani          ###   ########.fr       */
+/*   Updated: 2025/02/13 20:10:46 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ char	*get_next_line(int fd)
 	if (!save[fd])
 		return (NULL);
 	line = ft_extract_line(save[fd]);
-	save[fd] = ft_update_save(line);
+	save[fd] = ft_update_save(save);
 	return (line);
 }
