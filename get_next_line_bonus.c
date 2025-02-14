@@ -6,32 +6,35 @@
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:22:18 by mpisani           #+#    #+#             */
-/*   Updated: 2025/02/13 22:19:23 by mpisani          ###   ########.fr       */
+/*   Updated: 2025/02/14 20:14:37 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
 
 static char	*ft_read_to_save(int fd, char *save)
 {
 	char	*buffer;
+	char	*tmp;
 	int		bytes_read;
 
-	bytes_read = 1;
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	while (!gnl_strchr(save, '\n') && bytes_read)
+	bytes_read = 1;
+	while (!gnl_strchr(save, '\n') && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
 			free(buffer);
+			free(save);
 			return (NULL);
 		}
 		buffer[bytes_read] = '\0';
-		save = gnl_strjoint(save, buffer);
+		tmp = gnl_strjoint(save, buffer);
+		free(save);
+		save = tmp;
 	}
 	free(buffer);
 	return (save);
@@ -42,10 +45,12 @@ static char	*ft_extract_line(char *save)
 	char	*line;
 	size_t	i;
 
-	i = 0;
 	if (!save || !save[0])
 		return (NULL);
+	i = 0;
 	while (save[i] && save[i] != '\n')
+		i++;
+	if (save[i] == '\n')
 		i++;
 	line = gnl_substr(save, 0, i);
 	return (line);
@@ -59,27 +64,29 @@ static char	*ft_update_save(char *save)
 	i = 0;
 	while (save[i] && save[i] != '\n')
 		i++;
+	if (save[i] == '\n')
+		i++;
 	if (!save[i])
 	{
 		free(save);
 		return (NULL);
 	}
-	new_save = gnl_strdup(save + i + 1);
+	new_save = gnl_strdup(save + i);
 	free(save);
 	return (new_save);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*save[FOPEN_MAX];
-	char		*line;
+	static char *save[FOPEN_MAX];
+	char *line;
 
-	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= FOPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	save[fd] = ft_read_to_save(fd, save[fd]);
 	if (!save[fd])
 		return (NULL);
 	line = ft_extract_line(save[fd]);
-	save[fd] = ft_update_save(save);
+	save[fd] = ft_update_save(save[fd]);
 	return (line);
 }

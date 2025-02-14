@@ -6,7 +6,7 @@
 /*   By: mpisani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:01:43 by mpisani           #+#    #+#             */
-/*   Updated: 2025/02/13 19:58:13 by mpisani          ###   ########.fr       */
+/*   Updated: 2025/02/14 20:09:07 by mpisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
 char	*get_next_line(int fd);
 size_t	gnl_strlen(const char *s);
